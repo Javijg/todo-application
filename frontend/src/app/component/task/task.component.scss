@@ -1,0 +1,47 @@
+@use '../../scss/variables';
+@use '../../scss/colors';
+
+:host {
+    display: block;
+    width: 250px;
+    height: 300px;
+    background: colors.$color-note-main;
+    box-shadow: variables.$box-shadow;
+    padding: variables.$spacer;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .task-header{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .title {
+        text-align: center;
+    }
+}
+
+span{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+};
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+input{
+    padding: variables.$spacer;
+    margin: .1em;
+    width: 90%;
+}
+
+.footer-button{
+    display: flex;
+    justify-content: center;
+    padding-top: variables.$spacer
+    
+}

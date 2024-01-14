@@ -1,0 +1,21 @@
+@use '../../scss/variables';
+
+:host {
+
+    padding: variables.$spacer-l;
+    display: flex;
+    justify-content: center;
+
+    .outer-container{
+        position: fixed;
+        width: 90%;
+        height: 90%;
+        overflow-y: auto;
+        border: 10px solid #adb2bd;
+        padding: variables.$spacer-l;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4* variables.$spacer-l;
+    }
+}

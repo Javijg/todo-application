@@ -1,0 +1,31 @@
+<div *ngIf="readOnly; then readonly; else edit_content"></div>
+<ng-template #readonly>
+  <div>
+    <div class="task-header">
+      <span [title]="task.category.name"> {{ task.category.name }}</span>
+      <div>{{ task.deadline | date : "dd/MM/yyyy" }}</div>
+    </div>
+
+    <h3 class="title" [title]="task.name">{{ task.name }}</h3>
+    <span [title]="task.description">{{ task.description }}</span>
+  </div>
+</ng-template>
+
+<ng-template #edit_content>
+  <form [formGroup]="taskForm">
+    <!--input type="text" formControlName="categoryName" placeholder="Category" /-->
+    <select formControlName="categoryName">
+      <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+</select> 
+    <input type="date" formControlName="deadline" />
+    <input type="text" formControlName="name" placeholder="Title" />
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="Description"
+    />
+  </form>
+  <div class="footer-button">
+    <button type="button" [disabled]="taskForm.invalid" (click)="onSave()">Save</button>
+  </div>
+</ng-template>

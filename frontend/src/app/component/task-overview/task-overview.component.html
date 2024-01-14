@@ -1,0 +1,14 @@
+<div class="outer-container" *ngIf="taskCategories$ | async as categories">
+  <todo-task
+    [readOnly]="false"
+    [categories]="categories"
+    (saved)="onSave($event)"
+  ></todo-task>
+  <ng-container *ngFor="let task of tasks$ | async">
+    <todo-task
+      [task]="task"
+      [categories]="categories"
+      (saved)="onSave($event)"
+    ></todo-task>
+  </ng-container>
+</div>
