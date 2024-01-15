@@ -2,6 +2,7 @@ package ch.cern.todo.controller;
 
 import ch.cern.todo.model.Task;
 import ch.cern.todo.repository.TaskRespository;
+import ch.cern.todo.service.TaskService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/task")
 public class TaskController {
+
     @Autowired
-    private TaskRespository taskRespository;
+    private TaskService taskService;
 
     private Log log = LogFactory.getLog(getClass());
 
@@ -33,7 +35,7 @@ public class TaskController {
     public ResponseEntity<Task> saveTask(@RequestBody Task task) {
 
         try {
-            Task savedEntity = taskRespository.save(task);
+            Task savedEntity = taskService.save(task);
             return new ResponseEntity<>(savedEntity, HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
             log.error("Save request violates data integrity for task category id " + task.getId() + ", " + e);
@@ -47,7 +49,7 @@ public class TaskController {
     @GetMapping(path="/{taskId}")
     public ResponseEntity<Task> getTask(@PathVariable Long taskId) {
 
-        Task task = taskRespository.findById(taskId).orElse(null);
+        Task task = taskService.findById(taskId);
         if(task == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -57,7 +59,7 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<Task>> getTasks() {
 
-        List<Task> tasks = taskRespository.findAll();
+        List<Task> tasks = taskService.findAll();
         if(tasks == null || tasks.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -67,13 +69,13 @@ public class TaskController {
     @DeleteMapping(path="/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
 
-        Task taskCategory = taskRespository.findById(taskId).orElse(null);
+        Task taskCategory = taskService.findById(taskId);
         if(taskCategory == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         try {
-            taskRespository.deleteById(taskId);
+            taskService.deleteById(taskId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e){
             log.error("Could not delete task category with id " + taskCategory.getId() + ", " + e);

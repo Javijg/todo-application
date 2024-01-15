@@ -18,7 +18,7 @@ export class TaskService {
   }
 
   public deleteTask$(task: Task): Observable<boolean> {
-    return this.http.delete<Task>('task').pipe(
+    return this.http.delete<Task>(`task/${task.id}`).pipe(
       map(() => true),
       catchError(() => of(false))
     );

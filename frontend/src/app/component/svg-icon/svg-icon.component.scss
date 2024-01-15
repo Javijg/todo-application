@@ -1,0 +1,10 @@
+@use '../../scss/variables' as variables;
+
+
+:host{
+    display: flex;
+    height: variables.$icon-size-default;
+    width: variables.$icon-size-default;
+
+    fill: grey;
+}

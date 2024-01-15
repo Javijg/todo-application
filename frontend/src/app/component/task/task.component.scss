@@ -2,6 +2,7 @@
 @use '../../scss/colors';
 
 :host {
+    position: relative;
     display: block;
     width: 250px;
     height: 300px;
@@ -11,37 +12,61 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    .task-header{
+    .container{
+        height: 100%;
+        width: 100%;
+
+        &:hover{
+            .icons{
+                visibility: visible;
+            }
+        }
+
+        .icons{
+            position: absolute;
+            display: flex;
+            right: 0;
+            bottom: 0;
+            padding-right: variables.$spacer;
+            visibility: hidden;
+        }
+
+        .task-header{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        span{
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.description{
+                white-space: pre-line
+            }
+        };
+    
+    }
+
+    form{
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
     }
 
-    .title {
-        text-align: center;
+    input, select{
+        padding: variables.$spacer;
+        margin: .1em;
+        width: 90%;
     }
-}
-
-span{
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-};
-
-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-input{
-    padding: variables.$spacer;
-    margin: .1em;
-    width: 90%;
-}
-
-.footer-button{
-    display: flex;
-    justify-content: center;
-    padding-top: variables.$spacer
-    
+  
+    .footer-button{
+        display: flex;
+        justify-content: center;
+        padding-top: variables.$spacer
+    }
 }

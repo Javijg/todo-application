@@ -8,17 +8,21 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EnvironmentHttpInterceptor } from './interceptor/environment.interceptor';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SvgIconComponent } from './component/svg-icon/svg-icon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskOverviewComponent,
-    TaskComponent
+    TaskComponent,
+    SvgIconComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [
     {provide: 'environment', useValue: environment},
