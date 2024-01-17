@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import { SvgIcon } from 'src/app/model/enum/svg-icon.enum';
+import { SvgIcon } from '../../model/enum/svg-icon.enum';
 
 @Component({
     selector: 'todo-svg-icon',

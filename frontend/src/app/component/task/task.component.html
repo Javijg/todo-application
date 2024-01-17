@@ -1,7 +1,7 @@
 <div *ngIf="readOnly; then readonly; else edit_content"></div>
 
 <ng-template #readonly>
-  <div class="container">
+  <div class="readonly-container">
     <div class="icons">
       <todo-svg-icon [icon]="SVG_ICON.Edit" (click)="onEdit()"></todo-svg-icon>
       <todo-svg-icon [icon]="SVG_ICON.Delete" (click)="onDelete()"></todo-svg-icon>

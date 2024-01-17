@@ -2,13 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnInit,
 } from '@angular/core';
 import { Observable, filter, tap } from 'rxjs';
 import { Task } from 'src/app/model/task';
 import { TaskCategory } from 'src/app/model/task-category';
-import { TaskCategoryService } from 'src/app/service/Task-category.service';
-import { TaskService } from 'src/app/service/task.sevice';
+import { TaskCategoryService } from '../../service/task-category.service';
+import { TaskService } from '../../service/task.sevice';
 
 @Component({
   selector: 'todo-task-overview',

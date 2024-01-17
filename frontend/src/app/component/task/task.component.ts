@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SvgIcon } from 'src/app/model/enum/svg-icon.enum';
+import { SvgIcon } from '../../model/enum/svg-icon.enum';
 import { Task } from 'src/app/model/task';
 import { TaskCategory } from 'src/app/model/task-category';
 
