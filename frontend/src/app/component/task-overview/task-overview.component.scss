@@ -11,7 +11,7 @@
         width: 90%;
         height: 90%;
         overflow-y: auto;
-        border: 10px solid #adb2bd;
+        border: variables.$border-xl;
         padding: variables.$spacer-l;
 
         display: flex;

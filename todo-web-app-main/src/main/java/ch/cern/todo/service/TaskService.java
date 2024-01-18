@@ -14,8 +14,14 @@ public class TaskService {
     @Autowired
     private TaskRespository repository;
 
+    @Autowired
+    private TaskCategoryService taskCategoryService;
+
     public Task save(Task task){
-        return repository.save(task);
+        Task savedEntity = repository.save(task);
+        if(savedEntity == null) return savedEntity;
+        savedEntity.setCategory(taskCategoryService.findById(savedEntity.getCategory().getId()));
+        return task;
     }
 
     public Task findById(Long taskId){

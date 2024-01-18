@@ -1,6 +1,6 @@
 @use '../../scss/variables';
 @use '../../scss/colors';
-/*
+
 :host {
     position: relative;
     display: block;
@@ -12,7 +12,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    .container{
+    .readonly-container{
         height: 100%;
         width: 100%;
 
@@ -56,18 +56,17 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    }
 
-    input, select{
-        padding: variables.$spacer;
-        margin: .1em;
-        width: 90%;
+        input, select{
+            padding: variables.$spacer;
+            margin: .1em;
+            width: 90%;
+        }
     }
-  
+    
     .footer-button{
         display: flex;
         justify-content: center;
         padding-top: variables.$spacer
     }
 }
-*/

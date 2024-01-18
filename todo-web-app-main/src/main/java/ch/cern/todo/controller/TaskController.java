@@ -1,7 +1,6 @@
 package ch.cern.todo.controller;
 
 import ch.cern.todo.model.Task;
-import ch.cern.todo.repository.TaskRespository;
 import ch.cern.todo.service.TaskService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,6 +29,14 @@ public class TaskController {
 
     private Log log = LogFactory.getLog(getClass());
 
+    /**
+     * POST  saves the task
+     *
+     * @RequestBody the task
+     * @return OK
+     *         or Bad request - Issue with save process
+     *         or Internal Server Error
+     */
     @PostMapping
     public ResponseEntity<Task> saveTask(@RequestBody Task task) {
 
@@ -46,6 +52,14 @@ public class TaskController {
         }
     }
 
+    /**
+     * Get  gets the task
+     *
+     * @PathVariable the task id
+     * @return OK
+     *         or Not found
+     *         or Internal Server Error
+     */
     @GetMapping(path="/{taskId}")
     public ResponseEntity<Task> getTask(@PathVariable Long taskId) {
 
@@ -56,6 +70,12 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
+    /**
+     * GET  gets the tasks
+     *
+     * @return OK
+     *         or No content
+     */
     @GetMapping
     public ResponseEntity<List<Task>> getTasks() {
 
@@ -66,6 +86,14 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
+    /**
+     * DELETE  deletes the task
+     *
+     * @PathVariable the task id
+     * @return OK
+     *         or Not found
+     *         or Internal Server Error
+     */
     @DeleteMapping(path="/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
 
@@ -81,7 +109,5 @@ public class TaskController {
             log.error("Could not delete task category with id " + taskCategory.getId() + ", " + e);
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
     }
 }

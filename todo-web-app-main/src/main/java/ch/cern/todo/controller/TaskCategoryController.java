@@ -29,6 +29,14 @@ public class TaskCategoryController {
 
     private Log log = LogFactory.getLog(getClass());
 
+    /**
+     * POST  saves the category
+     *
+     * @RequestBody the category
+     * @return OK
+     *         or Bad request - Issue with save process
+     *         or Internal Server Error
+     */
     @PostMapping
     public ResponseEntity<TaskCategory> saveCategory(@RequestBody TaskCategory taskCategory) {
 
@@ -44,6 +52,14 @@ public class TaskCategoryController {
         }
     }
 
+    /**
+     * DELETE  deletes the category
+     *
+     * @PathVariable the category id
+     * @return OK
+     *         or Not found
+     *         or Internal Server Error
+     */
     @DeleteMapping(path="/{categoryId}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long categoryId) {
 
@@ -61,6 +77,13 @@ public class TaskCategoryController {
         }
     }
 
+    /**
+     * GET  gets the category
+     *
+     * @PathVariable the category id
+     * @return OK
+     *         or Not found
+     */
     @GetMapping(path="/{categoryId}")
     public ResponseEntity<TaskCategory> getCategory(@PathVariable Long categoryId) {
 
@@ -71,6 +94,12 @@ public class TaskCategoryController {
         return new ResponseEntity<>(taskCategory, HttpStatus.OK);
     }
 
+    /**
+     * GET  gets the categories
+     *
+     * @return OK
+     *         or No content
+     */
     @GetMapping
     public ResponseEntity<List<TaskCategory>> getCategories() {
 

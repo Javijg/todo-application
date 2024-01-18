@@ -2,8 +2,9 @@ package ch.cern.todo.controller;
 
 import ch.cern.todo.mocks.MockedTask;
 import ch.cern.todo.model.Task;
-import ch.cern.todo.repository.TaskRespository;
+import ch.cern.todo.service.TaskService;
 import ch.cern.todo.utils.JsonUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,9 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -27,7 +29,15 @@ public class TaskControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private TaskRespository taskRepository;
+    private TaskService taskService;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
 
     @Test
     public void successSaveTask() throws Exception {
@@ -36,10 +46,10 @@ public class TaskControllerTests {
         String stringifiedMockTask = JsonUtils.valueToString(mockTask);
 
         // Mock the service method
-        when(taskRepository.save(any(Task.class))).thenReturn(mockTask);
+        when(taskService.save(any(Task.class))).thenReturn(mockTask);
 
         // Act and Assert
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/task/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/task")
                         .content(stringifiedMockTask)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -52,7 +62,7 @@ public class TaskControllerTests {
         Task mockTask = MockedTask.mockedTask;
         String stringifiedMockTask = JsonUtils.valueToString(mockTask);
         // Mock the service method
-        when(taskRepository.findById(1l)).thenReturn(Optional.of(mockTask));
+        when(taskService.findById(1l)).thenReturn(mockTask);
 
         // Act and Assert
         mockMvc.perform(MockMvcRequestBuilders.get("/api/task/1")
@@ -76,10 +86,10 @@ public class TaskControllerTests {
         // Arrange
         List<Task> mockedTasks = MockedTask.mockedTaskList;
         // Mock the service method
-        when(taskRepository.findAll()).thenReturn(mockedTasks);
+        when(taskService.findAll()).thenReturn(mockedTasks);
 
         // Act and Assert
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/task/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/task")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(mockedTasks.size()))
@@ -89,10 +99,10 @@ public class TaskControllerTests {
     @Test
     public void getAllTasks_noContent() throws Exception {
         // Mock the service method
-        when(taskRepository.findAll()).thenReturn(null);
+        when(taskService.findAll()).thenReturn(null);
 
         // Act and Assert
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/task/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/task")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                 .andExpect(content().string(""));
@@ -101,7 +111,7 @@ public class TaskControllerTests {
     @Test
     public void deleteTask_success() throws Exception {
         // Mock the service method
-        when(taskRepository.findById(1l)).thenReturn(Optional.of(MockedTask.mockedTask));
+        when(taskService.findById(1l)).thenReturn(MockedTask.mockedTask);
 
         // Act and Assert
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/task/1")

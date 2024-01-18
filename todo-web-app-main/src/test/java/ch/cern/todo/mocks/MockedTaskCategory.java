@@ -1,6 +1,5 @@
 package ch.cern.todo.mocks;
 
-import ch.cern.todo.model.Task;
 import ch.cern.todo.model.TaskCategory;
 
 import java.util.ArrayList;
